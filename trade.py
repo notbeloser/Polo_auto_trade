@@ -1,6 +1,8 @@
 import poloniex
 import time
 import sys
+from colorama import Fore, Back, Style
+#print(Fore.RED + 'some red text'+Style.RESET_ALL)
 polo = poloniex.Poloniex('GBC146G1-M9RGA0VT-T5FL729B-P8OTN6SU',
 'a4d44e8e4e4432e9a9a94d66fb17a7b7081858aaeb85c0fdd9b6ebf8a51a7d2fa0160c5db0e55b8d836ba6d64b1c0e324eba164b94278617edd2eec48c09acb7')
 
@@ -10,13 +12,16 @@ coin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_ZEC','BTC_ETC','BTC_DGB','BTC_BTS'
 'BTC_XCP','BTC_XBC','BTC_VRC','BTC_RIC','BTC_PASC','BTC_BTCD','BTC_EXP','BTC_SBD','BTC_SJCX','BTC_NEOS','BTC_FLO','BTC_BELA','BTC_NAUT','BTC_XPM','BTC_NMC',
 'BTC_BCY','BTC_XVC','BTC_BTM','BTC_HUC']
 
-"""for a in range(10):
-	k=polo.returnChartData(coin_pair[a],300)
-	file = open(coin_pair[a]+'_kline','w+')
-	
-	for i in range(len(k)):
-		str="%s,date %d ,open %.8f,close %.8f,high %.8f,low %.8f,quoteVolume %.8f,weightedAverage %.8f\n" %(coin_pair[a],int(k[i]['date']),float(k[i]['open']),float(k[i]['close'])
-		,float(k[i]['high']),float(k[i]['low']),float(k[i]['quoteVolume']),float(k[i]['weightedAverage']))
-		print(str)
-		file.write(str)
-	file.close()"""
+for i in range(len(coin_pair)):
+	Chart=polo.returnChartData(coin_pair[i],300,time.time()-1500,time.time())
+	print(coin_pair[i])
+	for j in range(len(Chart)):
+		open=float(Chart[len(Chart)-j-1]['open'])
+		close=float(Chart[len(Chart)-j-1]['close'])
+		percent=(close-open)/open*100
+		if percent>=0:
+			percent_str=Fore.GREEN + str(percent) + Style.RESET_ALL
+		else:
+			percent_str=Fore.RED + str(percent) + Style.RESET_ALL
+		print("open\t%.8f close\t%.8f change %s" %(open,close,percent_str))
+
