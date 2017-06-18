@@ -14,11 +14,12 @@ coin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_ZEC','BTC_ETC','BTC_DGB','BTC_BTS'
 
 k_line_amount = 5
 for i in range(len(coin_pair)):
+#for i in range(1):
 	Chart=polo.returnChartData(coin_pair[i],300,time.time()-300*k_line_amount,time.time())
 	print(coin_pair[i])
 	k_av=[0]*len(Chart)
 	for j in range(len(Chart)):
-		k_av[j]=float( Chart[len(Chart)-j-1]['weightedAverage'])
+		k_av[j]=float( Chart[j]['weightedAverage'])
 	for j in range(len(k_av)):
 		k_str ="%.8f" %(k_av[j])
 		if j==0:
