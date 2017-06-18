@@ -20,6 +20,7 @@ for i in range(len(coin_pair)):
 	k_av=[0]*len(Chart)
 	for j in range(len(Chart)):
 		k_av[j]=float( Chart[j]['weightedAverage'])
+
 	for j in range(len(k_av)):
 		k_str ="%.8f" %(k_av[j])
 		if j==0:
@@ -39,10 +40,10 @@ for i in range(len(coin_pair)):
 			percent="%.8f"%((k_av[j]-k_av[j-1])/k_av[j-1]*100)
 			print(Fore.RED + percent+"%"+Style.RESET_ALL,end="\t")
 
-	change =(k_av[len(k_av)-1]-k_av[0])/k_av[0]*100
+	change =(k_av[len(k_av)-1]-k_av[0])/(k_av[0]+0.00001)*100
 	change_str = "%.8f"%change
 	if change >=0:
 		print(Fore.GREEN+"Rising\t"+change_str+"%"+Style.RESET_ALL)
 	else:
 		print(Fore.RED+"Falling\t"+change_str+"%"+Style.RESET_ALL)
-
+	
