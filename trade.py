@@ -12,16 +12,36 @@ coin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_ZEC','BTC_ETC','BTC_DGB','BTC_BTS'
 'BTC_XCP','BTC_XBC','BTC_VRC','BTC_RIC','BTC_PASC','BTC_BTCD','BTC_EXP','BTC_SBD','BTC_SJCX','BTC_NEOS','BTC_FLO','BTC_BELA','BTC_NAUT','BTC_XPM','BTC_NMC',
 'BTC_BCY','BTC_XVC','BTC_BTM','BTC_HUC']
 
+k_line_amount = 5
 for i in range(len(coin_pair)):
-	Chart=polo.returnChartData(coin_pair[i],300,time.time()-1500,time.time())
+	Chart=polo.returnChartData(coin_pair[i],300,time.time()-300*k_line_amount,time.time())
 	print(coin_pair[i])
+	k_av=[0]*len(Chart)
 	for j in range(len(Chart)):
-		open=float(Chart[len(Chart)-j-1]['open'])
-		close=float(Chart[len(Chart)-j-1]['close'])
-		percent=(close-open)/open*100
-		if percent>=0:
-			percent_str=Fore.GREEN + str(percent) + Style.RESET_ALL
+		k_av[j]=float( Chart[len(Chart)-j-1]['weightedAverage'])
+	for j in range(len(k_av)):
+		k_str ="%.8f" %(k_av[j])
+		if j==0:
+			print(Fore.GREEN +k_str+Style.RESET_ALL,end="\t")
+		elif k_av[j]>=k_av[j-1]:
+			print(Fore.GREEN +k_str+Style.RESET_ALL,end="\t")
 		else:
-			percent_str=Fore.RED + str(percent) + Style.RESET_ALL
-		print("open\t%.8f close\t%.8f change %s" %(open,close,percent_str))
+			print(Fore.RED +k_str+Style.RESET_ALL,end="\t")
+	print("")
+	for j in range(len(k_av)):
+		if j==0:
+			print(Fore.GREEN+"0.00000000%"+Style.RESET_ALL,end="\t")
+		elif k_av[j]>=k_av[j-1]:
+			percent="%.8f" %((k_av[j]-k_av[j-1])/k_av[j-1]*100)
+			print(Fore.GREEN +percent+"%"+Style.RESET_ALL,end="\t")
+		else:
+			percent="%.8f"%((k_av[j]-k_av[j-1])/k_av[j-1]*100)
+			print(Fore.RED + percent+"%"+Style.RESET_ALL,end="\t")
+
+	change =(k_av[len(k_av)-1]-k_av[0])/k_av[0]*100
+	change_str = "%.8f"%change
+	if change >=0:
+		print(Fore.GREEN+"Rising\t"+change_str+"%"+Style.RESET_ALL)
+	else:
+		print(Fore.RED+"Falling\t"+change_str+"%"+Style.RESET_ALL)
 
