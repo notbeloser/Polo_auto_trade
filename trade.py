@@ -1,7 +1,17 @@
 import poloniex
 import time
 import sys
+import numpy as np
+import datetime as dt
+import matplotlib.dates as md
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.finance as mpf
+from matplotlib.dates import DateFormatter, WeekdayLocator,DayLocator, MONDAY
 from colorama import Fore, Back, Style
+from datetime import datetime
+
+pd.set_option('display.width', 200)
 #print(Fore.RED + 'some red text'+Style.RESET_ALL)
 polo = poloniex.Poloniex('GBC146G1-M9RGA0VT-T5FL729B-P8OTN6SU',
 'a4d44e8e4e4432e9a9a94d66fb17a7b7081858aaeb85c0fdd9b6ebf8a51a7d2fa0160c5db0e55b8d836ba6d64b1c0e324eba164b94278617edd2eec48c09acb7')
@@ -11,37 +21,30 @@ coin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_ZEC','BTC_ETC','BTC_DGB','BTC_BTS'
 ,'BTC_FLDC','BTC_GRC','BTC_EMC2','BTC_VTC','BTC_GNO','BTC_PINK','BTC_RADS','BTC_AMP','BTC_NOTE','BTC_CLAM','BTC_PPC','BTC_NAV','BTC_OMNI','BTC_VIA','BTC_BLK',
 'BTC_XCP','BTC_XBC','BTC_VRC','BTC_RIC','BTC_PASC','BTC_BTCD','BTC_EXP','BTC_SBD','BTC_SJCX','BTC_NEOS','BTC_FLO','BTC_BELA','BTC_NAUT','BTC_XPM','BTC_NMC',
 'BTC_BCY','BTC_XVC','BTC_BTM','BTC_HUC']
+k_line = 50
+chart = [pd.DataFrame()]*len(coin_pair)
+# for i in range(len(coin_pair)):
+for i in range(1):
+    # print(coin_pair[i])
+    chart[i]=pd.DataFrame(polo.returnChartData(coin_pair[i], 300, time.time() - 300 * k_line, time.time()))
+    # print(chart[i])
+    quotes_str=['date','open','close','high','low']
+    quote = pd.DataFrame.transpose(chart[i][quotes_str[:]]).convert_objects(convert_numeric=True).as_matrix()
+    date = ([dt.datetime.fromtimestamp(quote[0][a]) for a in range(len(quote[0]))])
+    quote[0] = md.date2num(date)
+    mondays = WeekdayLocator(MONDAY)  # major ticks on the mondays
+    alldays = DayLocator()  # minor ticks on the days
+    weekFormatter = DateFormatter('%b %d')  # e.g., Jan 12
+    dayFormatter = DateFormatter('%d')  # e.g., 12
 
-k_line_amount = 5
-for i in range(len(coin_pair)):
-	Chart=polo.returnChartData(coin_pair[i],300,time.time()-300*k_line_amount,time.time())
-	print(coin_pair[i])
-	k_av=[0]*len(Chart)
-	for j in range(len(Chart)):
-		k_av[j]=float( Chart[len(Chart)-j-1]['weightedAverage'])
-	for j in range(len(k_av)):
-		k_str ="%.8f" %(k_av[j])
-		if j==0:
-			print(Fore.GREEN +k_str+Style.RESET_ALL,end="\t")
-		elif k_av[j]>=k_av[j-1]:
-			print(Fore.GREEN +k_str+Style.RESET_ALL,end="\t")
-		else:
-			print(Fore.RED +k_str+Style.RESET_ALL,end="\t")
-	print("")
-	for j in range(len(k_av)):
-		if j==0:
-			print(Fore.GREEN+"0.00000000%"+Style.RESET_ALL,end="\t")
-		elif k_av[j]>=k_av[j-1]:
-			percent="%.8f" %((k_av[j]-k_av[j-1])/k_av[j-1]*100)
-			print(Fore.GREEN +percent+"%"+Style.RESET_ALL,end="\t")
-		else:
-			percent="%.8f"%((k_av[j]-k_av[j-1])/k_av[j-1]*100)
-			print(Fore.RED + percent+"%"+Style.RESET_ALL,end="\t")
+    fig, ax = plt.subplots()
+    fig.subplots_adjust(bottom=0.2)
+    ax.xaxis.set_major_locator(mondays)
+    ax.xaxis.set_minor_locator(alldays)
+    ax.xaxis.set_major_formatter(weekFormatter)
+    mpf.candlestick_ochl(ax, quote, width=0.6)
 
-	change =(k_av[len(k_av)-1]-k_av[0])/k_av[0]*100
-	change_str = "%.8f"%change
-	if change >=0:
-		print(Fore.GREEN+"Rising\t"+change_str+"%"+Style.RESET_ALL)
-	else:
-		print(Fore.RED+"Falling\t"+change_str+"%"+Style.RESET_ALL)
+    plt.show()
+
+
 
