@@ -27,39 +27,42 @@ coin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_ZEC','BTC_ETC','BTC_DGB','BTC_BTS'
 period = polo.MINUTE * 5
 df = [pd.DataFrame()]*len(coin_pair)
 p=[figure()]*len(coin_pair)
+
 output_file("polo_chart.html", title="Poloniex-即時k線")
 
-window_short = 4
-window_long = 6
+window_short = 3
+window_long = 8
 SD = 0.05
 # for i in range(len(coin_pair)):
 
-for i in range(10):
+for i in range(1):
+    print(coin_pair[i])
     df[i]=pd.DataFrame(polo.returnChartData(coin_pair[i],period,time()-polo.DAY))
+    df[i]['date'] = df[i]['date']+polo.DAY/3  #shift time to UTC+8
     df[i]['date'] = pd.to_datetime(df[i]["date"], unit='s')
     df[i].dropna(inplace=True)
 
-    df[i]['short'] = pd.rolling_mean(df[i]['close'], window=window_short)
-    df[i]['long'] = pd.rolling_mean(df[i]['close'], window=window_long)
-    df[i]['buy'] = df[i]['short'] > df[i]['long']
+    df[i]['short'] = pd.ewma(df[i]['weightedAverage'],com= window_short )
+    df[i]['long'] = pd.rolling_mean(df[i]['weightedAverage'], window=window_long)
+    df[i]['buy'] = (df[i]['short'] > df[i]['long'])*pd.DataFrame.mean(df[i].weightedAverage)/2
+    df[i]['diff']=pd.DataFrame.diff(df[i]['weightedAverage']) *100 /df[i]['weightedAverage']
     print(df[i])
 
     w = (period * 1000) - 5000
-    tools = "pan,wheel_zoom,box_zoom,reset,save"
-    print(coin_pair[i])
-    p[i] = figure(x_axis_type="datetime", tools=tools, plot_width=1000,plot_height=500, title=coin_pair[i])
+    tools = "pan,wheel_zoom,box_zoom,reset,save,hover"
+
+    p[i] = figure(x_axis_type="datetime", tools=tools, plot_width=1000,plot_height=750, title=coin_pair[i])
     p[i].xaxis.major_label_orientation = pi / 4
     p[i].grid.grid_line_alpha = 0.7
     inc = df[i].close > df[i].open
     dec = df[i].open > df[i].close
     p[i].segment(df[i].date, df[i].high, df[i].date, df[i].low, color="black")
-    p[i].line(df[i].date,df[i].short,color='yellow')
-    p[i].line(df[i].date,df[i].long,color='blue')
+
     p[i].vbar(df[i].date[inc], w, df[i].open[inc], df[i].close[inc], fill_color="green", line_color="black")
     p[i].vbar(df[i].date[dec], w, df[i].open[dec], df[i].close[dec], fill_color="red", line_color="black")
 
+    p[i].line(df[i].date,df[i].short,color='yellow')
+    p[i].line(df[i].date,df[i].long,color='blue')
 
 
-
-
-show(column(p[0:10]))
+show(column(p[0]))
