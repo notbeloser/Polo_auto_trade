@@ -50,9 +50,3 @@ for i in range(2):
     p.vbar(df[i].date[dec], w, df[i].open[dec], df[i].close[dec], fill_color="red", line_color="black")
 
     show(p)
-
-
-
-
-
-
