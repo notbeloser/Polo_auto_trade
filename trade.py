@@ -11,7 +11,7 @@ from datetime import datetime
 
 from math import pi
 import pandas as pd
-from bokeh.plotting import figure, output_file, show
+from bokeh.plotting import figure, output_file, show,save
 from bokeh.layouts import column
 
 pd.set_option('display.width', 300)
@@ -24,36 +24,45 @@ coin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_ZEC','BTC_ETC','BTC_DGB','BTC_BTS'
 'BTC_XCP','BTC_XBC','BTC_VRC','BTC_RIC','BTC_PASC','BTC_BTCD','BTC_EXP','BTC_SBD','BTC_SJCX','BTC_NEOS','BTC_FLO','BTC_BELA','BTC_NAUT','BTC_XPM','BTC_NMC',
 'BTC_BCY','BTC_XVC','BTC_BTM','BTC_HUC']
 
+margin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_BTS','BTC_STR','BTC_FCT','BTC_DASH','BTC_XMR','BTC_DOGE','BTC_MAID','BTC_CLAM']
+
 period = polo.MINUTE * 5
-df = [pd.DataFrame()]*len(coin_pair)
-p=[figure()]*len(coin_pair)
+df = [pd.DataFrame()]*len(margin_pair)
+p=[figure()]*len(margin_pair)
 
 output_file("polo_chart.html", title="Poloniex-即時k線")
 
 window_short = 3
 window_long = 8
-SD = 0.05
+SD = 0.02
 # for i in range(len(coin_pair)):
 
-for i in range(1):
-    print(coin_pair[i])
-    df[i]=pd.DataFrame(polo.returnChartData(coin_pair[i],period,time()-polo.DAY))
+for i in range(len(margin_pair)):
+    print(margin_pair[i])
+    df[i]=pd.DataFrame(polo.returnChartData(margin_pair[i],period,time()-polo.DAY))
     df[i]['date'] = df[i]['date']+polo.DAY/3  #shift time to UTC+8
     df[i]['date'] = pd.to_datetime(df[i]["date"], unit='s')
-    df[i].dropna(inplace=True)
 
-    df[i]['short'] = pd.ewma(df[i]['weightedAverage'],com= window_short )
-    df[i]['long'] = pd.rolling_mean(df[i]['weightedAverage'], window=window_long)
-    df[i]['buy'] = (df[i]['short'] > df[i]['long'])*pd.DataFrame.mean(df[i].weightedAverage)/2
-    df[i]['diff']=pd.DataFrame.diff(df[i]['weightedAverage']) *100 /df[i]['weightedAverage']
+
+    df[i]['short'] = pd.ewma(df[i]['close'],com= window_short )
+    df[i]['long'] = pd.rolling_mean(df[i]['close'], window=window_long)
+    df[i]['SD'] = (df[i].short - df[i].long)*100/df[i].long
+    df[i]['buy'] = (df[i].SD>SD)
+    df[i]['sell'] = (df[i].SD < (-SD))
+    df[i]['bs'] = df[i].buy != df[i].sell
+    trade_index = df[i][df[i]['bs'] == True].index.tolist()
+    df[i].dropna(inplace=True)
+    df[i]['trade'] = pd.DataFrame.diff(df[i].buy[trade_index]*1 + df[i].sell[trade_index]*-1)
+    df[i]['trade'].fillna(0,inplace=True)
+    df[i]=df[i].drop(['buy','sell','bs'],axis=1)
     print(df[i])
 
     w = (period * 1000) - 5000
     tools = "pan,wheel_zoom,box_zoom,reset,save,hover"
 
-    p[i] = figure(x_axis_type="datetime", tools=tools, plot_width=1000,plot_height=750, title=coin_pair[i])
+    p[i] = figure(x_axis_type="datetime", tools=tools, plot_width=1000,plot_height=750, title=margin_pair[i])
     p[i].xaxis.major_label_orientation = pi / 4
-    p[i].grid.grid_line_alpha = 0.7
+    p[i].grid.grid_line_alpha = 2
     inc = df[i].close > df[i].open
     dec = df[i].open > df[i].close
     p[i].segment(df[i].date, df[i].high, df[i].date, df[i].low, color="black")
@@ -65,4 +74,4 @@ for i in range(1):
     p[i].line(df[i].date,df[i].long,color='blue')
 
 
-show(column(p[0]))
+save(column(p))
