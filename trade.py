@@ -29,15 +29,15 @@ margin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_BTS','BTC_STR','BTC_FCT','BTC_DA
 period = polo.MINUTE * 5
 df = [pd.DataFrame()]*len(margin_pair)
 p=[figure()]*len(margin_pair)
-
+q=[figure()]*len(margin_pair)
 output_file("polo_chart.html", title="Poloniex-即時k線")
 
 window_short = 3
-window_long = 8
-SD = 0.02
-# for i in range(len(coin_pair)):
-
-for i in range(len(margin_pair)):
+window_long = 5
+SDP = 0.2
+SDN = -0.6
+# for i in range(len(margin_pair)):
+for i in range(1):
     print(margin_pair[i])
     df[i]=pd.DataFrame(polo.returnChartData(margin_pair[i],period,time()-polo.DAY))
     df[i]['date'] = df[i]['date']+polo.DAY/3  #shift time to UTC+8
@@ -46,11 +46,12 @@ for i in range(len(margin_pair)):
 
     df[i]['short'] = pd.ewma(df[i]['close'],com= window_short )
     df[i]['long'] = pd.rolling_mean(df[i]['close'], window=window_long)
-    df[i]['SD'] = (df[i].short - df[i].long)*100/df[i].long
-    df[i]['buy'] = (df[i].SD>SD)
-    df[i]['sell'] = (df[i].SD < (-SD))
+    df[i]['SD']=(df[i].short - df[i].long) / df[i].long * 100
+    df[i]['buy'] = df[i]['SD']>SDP
+    df[i]['sell'] = df[i]['SD']< SDN
     df[i]['bs'] = df[i].buy != df[i].sell
     trade_index = df[i][df[i]['bs'] == True].index.tolist()
+
     df[i].dropna(inplace=True)
     df[i]['trade'] = pd.DataFrame.diff(df[i].buy[trade_index]*1 + df[i].sell[trade_index]*-1)
     df[i]['trade'].fillna(0,inplace=True)
@@ -60,7 +61,7 @@ for i in range(len(margin_pair)):
     w = (period * 1000) - 5000
     tools = "pan,wheel_zoom,box_zoom,reset,save,hover"
 
-    p[i] = figure(x_axis_type="datetime", tools=tools, plot_width=1000,plot_height=750, title=margin_pair[i])
+    p[i] = figure(x_axis_type="datetime", tools=tools, plot_width=1000,plot_height=400, title=margin_pair[i])
     p[i].xaxis.major_label_orientation = pi / 4
     p[i].grid.grid_line_alpha = 2
     inc = df[i].close > df[i].open
@@ -72,6 +73,72 @@ for i in range(len(margin_pair)):
 
     p[i].line(df[i].date,df[i].short,color='yellow')
     p[i].line(df[i].date,df[i].long,color='blue')
+    trade_index = df[i][df[i]['trade'] ==2].index.tolist()
+    p[i].circle(df[i]['date'][trade_index], df[i]['trade'][trade_index]/2*df[i]['weightedAverage'][trade_index]*0.01 +df[i]['weightedAverage'][trade_index] , color='green')
+    trade_index = df[i][df[i]['trade'] ==-2].index.tolist()
+    p[i].circle(df[i]['date'][trade_index],
+                df[i]['trade'][trade_index] / 2 * df[i]['weightedAverage'][trade_index] * 0.01 +
+                df[i]['weightedAverage'][trade_index], color='red')
+
+df_index=df[0].index.tolist()
 
 
-save(column(p))
+BTC=1
+ETH=0
+fee=0
+trade_time=0
+for i in df_index:
+    if df[0].trade[i] == -2 and ETH>0:
+        BTC=ETH*df[0]['close'][i] * 0.9975
+        fee = fee + ETH*df[0]['close'][i] * 0.0025
+        ETH=0
+        trade_time = trade_time + 1
+    elif df[0].trade[i] == 2 and BTC>0:
+        ETH=BTC/df[0]['close'][i]*0.9975
+        fee = fee + BTC * 0.0025
+        BTC=0
+        trade_time=trade_time+1
+print("BTC %f ETH %f fee %f trade time %f"%(BTC,ETH,fee,trade_time))
+if ETH>0:
+    print("Equal BTC %f"%(ETH * df[0].close[i] * 0.9975))
+#
+# BTC=1
+# BTC_lend=0
+# BTC_Margin=0
+# ETH=0
+# ETH_lend=0
+# ETH_Margin=0
+# trade_time=0
+# fee=0
+# for i in df_index:
+#     if df[0].trade[i] == -2: #open Buy Margin && close sell Margin
+#         #sell current ETH
+#         if BTC_lend >0:
+#             BTC_Margin = ETH_Margin * df[0]['close'][i] * 0.9975
+#             BTC=BTC_Margin-BTC_lend
+#             BTC_Margin = BTC_lend =0
+#         #borrow ETH to sell
+#         ETH_lend = BTC/df[0]['close'][i] *1.5
+#         ETH_Margin = BTC/df[0]['close'][i] *2.5
+#         BTC_Margin = ETH_Margin *df[0]['close'][i]*0.9975
+#         trade_time=trade_time+1
+#     elif df[0].trade[i] == 2:
+#         if ETH_lend >0:
+#             ETH_Margin = BTC_Margin /df[0]['close'][i] * 0.9975
+#             ETH = ETH_Margin -ETH_lend
+#             BTC = ETH*df[0]['close'][i]
+#             ETH=0
+#         BTC_Margin = BTC*2.5
+#         BTC_lend = BTC*1.5
+#         ETH_Margin = BTC_Margin / df[0]['close'][i] * 0.9975
+#         BTC_Margin=0
+#
+#         trade_time=trade_time+1
+#
+# print("BTC %f"%BTC)
+# print("ETH %f"%ETH)
+#
+# if ETH>0:
+#     print("Equal BTC %f"%(ETH * df[0].close[i] * 0.9975))
+# print("Trade time %d"%trade_time)
+# show(column(p[0]))
