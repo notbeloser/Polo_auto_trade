@@ -60,7 +60,7 @@ while(1):
     df['trade'].fillna(0,inplace=True)
     df=df.drop(['buy','sell','bs'],axis=1)
     df_last = df.iloc[-1,:]
-    print(df_last)
+    # print(df_last)
     sleep(1)
 
     trade_amount = pd.DataFrame(polo.returnTradableBalances())
