@@ -1,18 +1,8 @@
 from poloniex import Poloniex
 from time import time,sleep
-import sys
-import numpy as np
-import matplotlib.dates as md
-import matplotlib.pyplot as plt
-import matplotlib.finance as mpf
-from matplotlib.dates import DateFormatter, WeekdayLocator,DayLocator, MONDAY
-from colorama import Fore, Back, Style
-from datetime import datetime
 
-from math import pi
 import pandas as pd
-from bokeh.plotting import figure, output_file, show,save
-from bokeh.layouts import column
+
 
 
 def print_full(x):
@@ -28,7 +18,7 @@ polo = Poloniex('GBC146G1-M9RGA0VT-T5FL729B-P8OTN6SU',
 coin = "BTC_DASH"
 
 period = polo.MINUTE * 5
-output_file(coin+".html", title="Poloniex-即時k線")
+
 
 
 window_short = 8
