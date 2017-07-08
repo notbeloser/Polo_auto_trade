@@ -23,21 +23,21 @@ coin_pair=['BTC_ETH','BTC_XRP','BTC_LTC','BTC_ZEC','BTC_ETC','BTC_DGB','BTC_BTS'
 ,'BTC_FLDC','BTC_GRC','BTC_EMC2','BTC_VTC','BTC_GNO','BTC_PINK','BTC_RADS','BTC_AMP','BTC_NOTE','BTC_CLAM','BTC_PPC','BTC_NAV','BTC_OMNI','BTC_VIA','BTC_BLK',
 'BTC_XCP','BTC_XBC','BTC_VRC','BTC_RIC','BTC_PASC','BTC_BTCD','BTC_EXP','BTC_SBD','BTC_SJCX','BTC_NEOS','BTC_FLO','BTC_BELA','BTC_NAUT','BTC_XPM','BTC_NMC',
 'BTC_BCY','BTC_XVC','BTC_BTM','BTC_HUC']
-coin = "BTC_ETH"
+coin = "BTC_BTS"
 
-period = polo.MINUTE * 15
+period = polo.MINUTE * 5
 output_file(coin+".html", title="Poloniex-即時k線")
 
 
 
-window_short = 11
-window_long = 17
+window_short = 15
+window_long = 70
 SDP = 0
 SDN = 0
 
 
 print(coin)
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*14))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*180))
 df['date'] = df['date']+polo.DAY/3  #shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
 
@@ -45,17 +45,17 @@ df['short'] = pd.ewma(df['close'],span= window_short )
 df['long'] = pd.rolling_mean(df['close'], window=window_long)
 df['MA'] = pd.rolling_mean(df['weightedAverage'],window=3)
 df['std'] = pd.rolling_std(df['close'],window=window_long)
-df['bl_up'] = df['long'] + df['std']*1
-df['bl_down'] = df['long'] - df['std']*1.3
-df['MA_below_bl'] = (df.MA < df.bl_down)*1
-df['MA_upper_bl'] = (df.MA > df.bl_up)*1
+df['bl_up'] = df['long'] + df['std']*0.6
+df['bl_down'] = df['long'] - df['std']*1.1
+df['MA_below_bl'] = (df.short < df.bl_down)*1
+df['MA_upper_bl'] = (df.short > df.bl_up)*1
 
 
 df['short_diff'] = df['short'].diff() /df['short'] *100
 df['long_diff'] = df['long'].diff() / df['long']*100
 df['SD'] = (df.short - df.long)/df.long * 100
 df['SD_diff'] = df['SD'].diff()
-df['buy'] = (df['MA_below_bl'].diff() == -1) & (df.long_diff > -0.1)
+df['buy'] = (df['MA_below_bl'].diff() == -1) & (df.long_diff > 0)
 df['sell'] = df['MA_upper_bl'].diff() == -1
 df['bs'] = df.buy != df.sell
 trade_index = df[df['bs'] == True].index.tolist()
@@ -96,23 +96,41 @@ p.circle(df['date'][trade_index],
 df_index=df.index.tolist()
 
 #test profit
-BTC=1
-BTS=0
-fee=0
+# BTC=1
+# BTS=0
+# fee=0
+# trade_time=0
+# for i in df_index:
+#     if df.trade[i] == -2 and BTS>0:
+#         BTC=BTS*df['weightedAverage'][i] * 0.9975
+#         fee = fee + BTS*df['weightedAverage'][i] * 0.0025
+#         BTS=0
+#         trade_time = trade_time + 1
+#     elif df.trade[i] == 2 and BTC>0:
+#         BTS=BTC/df['weightedAverage'][i]*0.9975
+#         fee = fee + BTC * 0.0025
+#         BTC=0
+#         trade_time=trade_time+1
+# print("BTC %f DASH %f fee %f trade time %f"%(BTC,BTS,fee,trade_time))
+# if BTS>0:
+#     print("Equal BTC %f"%(BTS * df.weightedAverage[i] * 0.9975))
+
+BTC = 1
+trade_state = 0 #0 is buy 1 is sell
+last_price = 0
 trade_time=0
 for i in df_index:
-    if df.trade[i] == -2 and BTS>0:
-        BTC=BTS*df['weightedAverage'][i] * 0.9975
-        fee = fee + BTS*df['weightedAverage'][i] * 0.0025
-        BTS=0
+    if df.trade[i] == -2 :
+        if last_price>0:
+          BTC = df['close'][i]/ last_price * BTC * 0.9975
+
+        last_price = df['close'][i]
         trade_time = trade_time + 1
-    elif df.trade[i] == 2 and BTC>0:
-        BTS=BTC/df['weightedAverage'][i]*0.9975
-        fee = fee + BTC * 0.0025
-        BTC=0
+    elif df.trade[i] == 2 :
+        if last_price>0:
+          BTC = last_price / df['close'][i] * BTC * 0.9975
+        last_price = df['close'][i]
         trade_time=trade_time+1
-print("BTC %f BTS %f fee %f trade time %f"%(BTC,BTS,fee,trade_time))
-if BTS>0:
-    print("Equal BTC %f"%(BTS * df.weightedAverage[i] * 0.9975))
+print("BTC %f trade time %f"%(BTC,trade_time))
 
 show(column(p))
