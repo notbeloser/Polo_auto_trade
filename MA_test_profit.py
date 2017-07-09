@@ -36,7 +36,7 @@ SDN = -0.73
 
 print(coin)
 
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*365))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*2))
 df['date'] = df['date']+polo.DAY/3  #shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
 
@@ -118,4 +118,4 @@ for i in df_index:
 
 
 print("BTC %f fee %f trade time %d win %d lose %d,win rate %f"%(BTC,fee,trade_time,win,lose,win/trade_time *100))
-# show(column(p))
+show(column(p))
