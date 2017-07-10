@@ -31,7 +31,14 @@ window_short = 8
 window_long = 6
 SDP = 0.262626
 SDN= -0.232323
-buying = -1
+
+Margin_state=polo.getMarginPosition(coin)
+if Margin_state['type'] == 'short':
+    buying = 0
+elif Margin_state['type'] == 'long':
+    buying = 1
+else:
+    buying = -1
 
 print(coin)
 while(1):

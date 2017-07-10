@@ -34,7 +34,7 @@ window_short = 8
 window_long = 6
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*7))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*90))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
