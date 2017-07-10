@@ -10,7 +10,13 @@ def print_full(x):
     print(x)
     pd.reset_option('display.max_rows')
 
-
+def stop_loss():
+    Margin_state=polo.getMarginPosition(coin)
+    pl = float(Margin_state['pl'])
+    total = float(Margin_state['total'])
+    lendingFees = float(Margin_state['lendingFees'])
+    if (pl+lendingFees) / total < -0.1 :
+        polo.closeMarginPosition(coin)
 
 pd.set_option('display.width', 300)
 polo = Poloniex('GBC146G1-M9RGA0VT-T5FL729B-P8OTN6SU',
@@ -29,13 +35,13 @@ buying = -1
 
 print(coin)
 while(1):
-    df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.HOUR*6))
+    df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.HOUR*3))
     df['date'] = df['date']+polo.DAY/3  #shift time to UTC+8
     df['date'] = pd.to_datetime(df["date"], unit='s')
 
 
-    df['short'] = pd.ewma(df['close'],com= window_short )
-    df['long'] = pd.rolling_mean(df['close'], window=window_long)
+    df['short'] = pd.ewma(df['weightedAverage'],com= window_short )
+    df['long'] = pd.rolling_mean(df['weightedAverage'], window=window_long)
     df['short_diff'] = df['short'].diff() /df['short'] *100
     df['long_diff'] = df['long'].diff() / df['long']*100
     df['SD'] = (df.short - df.long)/df.long * 100
@@ -72,3 +78,5 @@ while(1):
         buying = 1
         print("buy at %f" %(float(order_book.bids[2][0])))
 
+    if buying != -1:
+        stop_loss()

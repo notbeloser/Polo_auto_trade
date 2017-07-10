@@ -39,8 +39,8 @@ index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
-df['short'] = pd.ewma(df['close'], com=window_short)
-df['long'] = pd.rolling_mean(df['close'], window=window_long)
+df['short'] = pd.ewma(df['weightedAverage'], com=window_short)
+df['long'] = pd.rolling_mean(df['weightedAverage'], window=window_long)
 df['short_diff'] = df['short'].diff() / df['short'] * 100
 df['long_diff'] = df['long'].diff() / df['long'] * 100
 df['SD'] = (df.short - df.long) / df.long * 100
@@ -54,33 +54,33 @@ trade_index = df[df['bs'] == True].index.tolist()
 df.dropna(inplace=True)
 df['trade'] = pd.DataFrame.diff(df.buy[trade_index]*1 + df.sell[trade_index]*-1)
 df['trade'].fillna(0,inplace=True)
-df=df.drop(['buy','sell','bs'],axis=1)
+# df=df.drop(['buy','sell','bs'],axis=1)
 print_full(df)
-#
-# w = (period * 1000) - 5000
-# tools = "pan,wheel_zoom,box_zoom,reset,save,hover"
-#
-# p = figure(x_axis_type="datetime", tools=tools, plot_width=1200,plot_height=650, title=coin)
-# p.xaxis.major_label_orientation = pi / 4
-# p.grid.grid_line_alpha = 2
-# inc = df.close > df.open
-# dec = df.open > df.close
-# p.segment(df.date, df.high, df.date, df.low, color="black")
-#
-# p.vbar(df.date[inc], w, df.open[inc], df.close[inc], fill_color="green", line_color="black")
-# p.vbar(df.date[dec], w, df.open[dec], df.close[dec], fill_color="red", line_color="black")
-#
-# p.line(df.date,df.short,color='yellow')
-# p.line(df.date,df.long,color='blue')
-#
-#
-#
-# trade_index = df[df['trade'] ==2].index.tolist()
-# p.circle(df['date'][trade_index], df['trade'][trade_index]/2*df['weightedAverage'][trade_index]*0.01 +df['weightedAverage'][trade_index] , color='blue')
-# trade_index = df[df['trade'] ==-2].index.tolist()
-# p.circle(df['date'][trade_index],
-#             df['trade'][trade_index] / 2 * df['weightedAverage'][trade_index] * 0.01 +
-#             df['weightedAverage'][trade_index], color='black')
+
+w = (period * 1000) - 5000
+tools = "pan,wheel_zoom,box_zoom,reset,save,hover"
+
+p = figure(x_axis_type="datetime", tools=tools, plot_width=1200,plot_height=650, title=coin)
+p.xaxis.major_label_orientation = pi / 4
+p.grid.grid_line_alpha = 2
+inc = df.close > df.open
+dec = df.open > df.close
+p.segment(df.date, df.high, df.date, df.low, color="black")
+
+p.vbar(df.date[inc], w, df.open[inc], df.close[inc], fill_color="green", line_color="black")
+p.vbar(df.date[dec], w, df.open[dec], df.close[dec], fill_color="red", line_color="black")
+
+p.line(df.date,df.short,color='yellow')
+p.line(df.date,df.long,color='blue')
+
+
+
+trade_index = df[df['trade'] ==2].index.tolist()
+p.circle(df['date'][trade_index], df['trade'][trade_index]/2*df['weightedAverage'][trade_index]*0.01 +df['weightedAverage'][trade_index] , color='blue')
+trade_index = df[df['trade'] ==-2].index.tolist()
+p.circle(df['date'][trade_index],
+            df['trade'][trade_index] / 2 * df['weightedAverage'][trade_index] * 0.01 +
+            df['weightedAverage'][trade_index], color='black')
 
 df_index=df.index.tolist()
 
@@ -118,4 +118,4 @@ for i in df_index:
 win_rate = win/trade_time *100
 print("BTC %f fee %f trade time %d win %d lose %d,win rate %f,SDN %f,SDP %f"%(BTC,fee,trade_time,win,lose,win_rate,SDN,SDP))
 
-# show(column(p))
+show(column(p))
