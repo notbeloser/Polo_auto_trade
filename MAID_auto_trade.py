@@ -63,12 +63,12 @@ while(1):
 
     if (df_last.trade == -2 )&(buying != 0): #sell
         polo.closeMarginPosition(coin)
-        polo.marginSell(coin,float(order_book.bids[2][0]),MAID,2)
+        polo.marginSell(coin,float(order_book.bids[2][0]),MAID,0.02)
         buying = 0
         print("Sell at %f" %float(order_book.bids[2][0]) )
     elif (df_last.trade == 2) & (buying != 1):#buy
         polo.closeMarginPosition(coin)
-        polo.marginBuy(coin, float(order_book.asks[2][0]), BTC/float(order_book.asks[2][0]), 2)
+        polo.marginBuy(coin, float(order_book.asks[2][0]), BTC/float(order_book.asks[2][0]), 0.02)
         buying = 1
         print("buy at %f" %(float(order_book.bids[2][0])))
 

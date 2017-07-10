@@ -34,7 +34,7 @@ window_short = 8
 window_long = 6
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*365*2))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*7))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
@@ -55,7 +55,7 @@ df.dropna(inplace=True)
 df['trade'] = pd.DataFrame.diff(df.buy[trade_index]*1 + df.sell[trade_index]*-1)
 df['trade'].fillna(0,inplace=True)
 df=df.drop(['buy','sell','bs'],axis=1)
-# print_full(df)
+print_full(df)
 #
 # w = (period * 1000) - 5000
 # tools = "pan,wheel_zoom,box_zoom,reset,save,hover"
