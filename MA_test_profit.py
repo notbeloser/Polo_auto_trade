@@ -60,9 +60,9 @@ trade_index = df[df['bs'] == True].index.tolist()
 df.dropna(inplace=True)
 df['trade'] = pd.DataFrame.diff(df.buy[trade_index]*1 + df.sell[trade_index]*-1)
 df['trade'].fillna(0,inplace=True)
-# df=df.drop(['buy','sell','bs'],axis=1)
+df=df.drop(['buy','sell','bs'],axis=1)
 print_full(df)
-
+# print(df)
 w = (period * 1000) - 5000
 tools = "pan,wheel_zoom,box_zoom,reset,save,hover"
 
@@ -84,11 +84,9 @@ p.line(df.date,df.MA,color='black')
 
 
 trade_index = df[df['trade'] ==2].index.tolist()
-p.circle(df['date'][trade_index], df['trade'][trade_index]/2*df['weightedAverage'][trade_index]*0.01 +df['weightedAverage'][trade_index] , color='blue')
+p.circle(df['date'][trade_index],df['close'][trade_index],color='blue')
 trade_index = df[df['trade'] ==-2].index.tolist()
-p.circle(df['date'][trade_index],
-            df['trade'][trade_index] / 2 * df['weightedAverage'][trade_index] * 0.01 +
-            df['weightedAverage'][trade_index], color='black')
+p.circle(df['date'][trade_index],df['close'][trade_index],color='black')
 
 df_index=df.index.tolist()
 

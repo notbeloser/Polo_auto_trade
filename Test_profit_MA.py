@@ -59,11 +59,11 @@ df['buy'] = (df['MA_below_bl'].diff() == -1) & (df.long_diff > 0)
 df['sell'] = df['MA_upper_bl'].diff() == -1
 df['bs'] = df.buy != df.sell
 trade_index = df[df['bs'] == True].index.tolist()
-
 df.dropna(inplace=True)
 df['trade'] = pd.DataFrame.diff(df.buy[trade_index]*1 + df.sell[trade_index]*-1)
 df['trade'].fillna(0,inplace=True)
 df=df.drop(['buy','sell','bs'],axis=1)
+
 print(df)
 
 w = (period * 1000) - 5000
