@@ -10,18 +10,7 @@ def print_full(x):
     print(x)
     pd.reset_option('display.max_rows')
 
-def stop_loss():
-    while 1:
-        try:
-            Margin_state = polo.getMarginPosition(coin)
-            pl = float(Margin_state['pl'])
-            total = float(Margin_state['total'])
-            lendingFees = float(Margin_state['lendingFees'])
-            if (pl + lendingFees) / total < -0.1:
-                polo.closeMarginPosition(coin)
-            break
-        except:
-            print("stop loss fail,redo")
+
 
 pd.set_option('display.width', 300)
 polo = Poloniex('GBC146G1-M9RGA0VT-T5FL729B-P8OTN6SU',
@@ -85,24 +74,14 @@ while(1):
             print("Read Amount error , redo")
 
     if (df_last.trade == -2 )&(buying != 0): #sell
-        try:
             polo.closeMarginPosition(coin)
             polo.marginSell(coin, float(order_book.bids[2][0]), MAID, 0.02)
             buying = 0
             print("Sell at %f" % float(order_book.bids[2][0]))
-        except:
-            print("Sell error , redo again")
 
     elif (df_last.trade == 2) & (buying != 1):#buy
+        polo.closeMarginPosition(coin)
+        polo.marginBuy(coin, float(order_book.asks[2][0]), BTC / float(order_book.asks[2][0]), 0.02)
+        buying = 1
+        print("buy at %f" % (float(order_book.asks[2][0])))
 
-        try:
-            polo.closeMarginPosition(coin)
-            polo.marginBuy(coin, float(order_book.asks[2][0]), BTC / float(order_book.asks[2][0]), 0.02)
-            buying = 1
-            print("buy at %f" % (float(order_book.asks[2][0])))
-        except:
-            print("buy error,redo again")
-
-    if buying != -1:
-        stop_loss()
-        buying = -1

@@ -28,7 +28,7 @@ out=[]
 
 
 
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*7))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*10))
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
 
