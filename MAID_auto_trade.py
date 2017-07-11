@@ -19,6 +19,14 @@ coin = "BTC_MAID"
 
 period = polo.MINUTE * 5
 
+def stop_loss():
+    Margin_state=polo.getMarginPosition(coin)
+    pl = float(Margin_state['pl'])
+    total = float(Margin_state['total'])
+    lendingFees = float(Margin_state['lendingFees'])
+    if (pl+lendingFees) / total < -0.1 :
+        polo.closeMarginPosition(coin)
+
 
 
 window_short = 8
@@ -88,3 +96,5 @@ while(1):
         buying = 1
         print("buy at %f" % (float(order_book.asks[2][0])))
 
+    if buying != -1:
+        stop_loss()
