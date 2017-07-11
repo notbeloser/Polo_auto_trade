@@ -37,7 +37,7 @@ SDN = 0
 
 
 print(coin)
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*180))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*1))
 df['date'] = df['date']+polo.DAY/3  #shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
 

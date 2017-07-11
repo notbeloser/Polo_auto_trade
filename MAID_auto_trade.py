@@ -26,13 +26,15 @@ window_long = 6
 SDP = 0.262626
 SDN= -0.232323
 
-Margin_state=polo.getMarginPosition(coin)
+
+Margin_state = polo.getMarginPosition(coin)
 if Margin_state['type'] == 'short':
     buying = 0
 elif Margin_state['type'] == 'long':
     buying = 1
 else:
     buying = -1
+
 
 print(coin)
 while(1):
@@ -60,28 +62,29 @@ while(1):
     # print(df_last)
     sleep(1)
 
-    if df_last.trade != 0:
-        print(df_last)
-    while 1:
-        try:
-            trade_amount = pd.DataFrame(polo.returnTradableBalances())
-            trade_amount = trade_amount[coin]
-            MAID = float(trade_amount.MAID)
-            BTC = float(trade_amount.BTC)
-            order_book = pd.DataFrame(polo.returnOrderBook(coin, 10))
-            break
-        except:
-            print("Read Amount error , redo")
 
     if (df_last.trade == -2 )&(buying != 0): #sell
-            polo.closeMarginPosition(coin)
-            polo.marginSell(coin, float(order_book.bids[2][0]), MAID, 0.02)
-            buying = 0
-            print("Sell at %f" % float(order_book.bids[2][0]))
+        print(df_last)
+        trade_amount = pd.DataFrame(polo.returnTradableBalances())
+        trade_amount = trade_amount[coin]
+        MAID = float(trade_amount.MAID)
+        BTC = float(trade_amount.BTC)
+
+        order_book = pd.DataFrame(polo.returnOrderBook(coin, 10))
+        polo.closeMarginPosition(coin)
+        polo.marginSell(coin, float(order_book.bids[2][0]), MAID, 0.02)
+        buying = 0
+        print("Sell at %f" % float(order_book.bids[2][0]))
 
     elif (df_last.trade == 2) & (buying != 1):#buy
+        print(df_last)
+        trade_amount = pd.DataFrame(polo.returnTradableBalances())
+        trade_amount = trade_amount[coin]
+        MAID = float(trade_amount.MAID)
+        BTC = float(trade_amount.BTC)
+
         polo.closeMarginPosition(coin)
-        polo.marginBuy(coin, float(order_book.asks[2][0]), BTC / float(order_book.asks[2][0]), 0.02)
+        polo.marginBuy(coin, float(order_book.asks[2][0]), (BTC-0.0001) / float(order_book.asks[2][0]), 0.02)
         buying = 1
         print("buy at %f" % (float(order_book.asks[2][0])))
 
