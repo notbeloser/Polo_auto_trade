@@ -33,7 +33,7 @@ def stop_loss():
     pl = float(Margin_state['pl'])
     total = float(Margin_state['total'])
     lendingFees = float(Margin_state['lendingFees'])
-    if (pl+lendingFees) / total < -0.1 :
+    if (pl+lendingFees) / total < -0.05 :
         polo.closeMarginPosition(coin)
         print("stop loss active")
         return True
@@ -55,7 +55,7 @@ while(1):
 
 
 
-    df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.HOUR*3))
+    df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.HOUR*6))
     df['date'] = df['date']+polo.DAY/3  #shift time to UTC+8
     df['date'] = pd.to_datetime(df["date"], unit='s')
 
