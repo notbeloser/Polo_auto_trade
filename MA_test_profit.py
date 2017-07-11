@@ -32,9 +32,10 @@ output_file(coin+".html", title="Poloniex-即時k線")
 
 window_short = 8
 window_long = 6
+window_bool = 18
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*90))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*2))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
@@ -45,6 +46,11 @@ df['short_diff'] = df['short'].diff() / df['short'] * 100
 df['long_diff'] = df['long'].diff() / df['long'] * 100
 df['SD'] = (df.short - df.long) / df.long * 100
 df['SD_diff'] = df['SD'].diff()
+df['MA'] = pd.rolling_mean(df['weightedAverage'],window=window_bool)
+df['std'] = pd.rolling_std(df['close'],window=window_bool)
+df['bl_up'] = df['MA'] + df['std']*2
+df['bl_down'] = df['MA'] - df['std']*2
+
 
 df['buy'] = df.SD > SDP
 df['sell'] = df.SD < SDN
@@ -72,7 +78,9 @@ p.vbar(df.date[dec], w, df.open[dec], df.close[dec], fill_color="red", line_colo
 
 p.line(df.date,df.short,color='yellow')
 p.line(df.date,df.long,color='blue')
-
+p.line(df.date,df.bl_up,color='black')
+p.line(df.date,df.bl_down,color='black')
+p.line(df.date,df.MA,color='black')
 
 
 trade_index = df[df['trade'] ==2].index.tolist()
