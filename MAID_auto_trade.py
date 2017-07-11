@@ -26,6 +26,7 @@ def stop_loss():
     lendingFees = float(Margin_state['lendingFees'])
     if (pl+lendingFees) / total < -0.1 :
         polo.closeMarginPosition(coin)
+        print("stop loss active")
 
 
 
@@ -35,17 +36,20 @@ SDP = 0.262626
 SDN= -0.232323
 
 
-Margin_state = polo.getMarginPosition(coin)
-if Margin_state['type'] == 'short':
-    buying = 0
-elif Margin_state['type'] == 'long':
-    buying = 1
-else:
-    buying = -1
+
 
 
 print(coin)
 while(1):
+
+    Margin_state = polo.getMarginPosition(coin)
+    if Margin_state['type'] == 'short':
+        buying = 0
+    elif Margin_state['type'] == 'long':
+        buying = 1
+    else:
+        buying = -1
+
     df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.HOUR*3))
     df['date'] = df['date']+polo.DAY/3  #shift time to UTC+8
     df['date'] = pd.to_datetime(df["date"], unit='s')
@@ -81,7 +85,6 @@ while(1):
         order_book = pd.DataFrame(polo.returnOrderBook(coin, 10))
         polo.closeMarginPosition(coin)
         polo.marginSell(coin, float(order_book.bids[2][0]), MAID, 0.02)
-        buying = 0
         print("Sell at %f" % float(order_book.bids[2][0]))
 
     elif (df_last.trade == 2) & (buying != 1):#buy
@@ -93,7 +96,6 @@ while(1):
 
         polo.closeMarginPosition(coin)
         polo.marginBuy(coin, float(order_book.asks[2][0]), (BTC-0.0001) / float(order_book.asks[2][0]), 0.02)
-        buying = 1
         print("buy at %f" % (float(order_book.asks[2][0])))
 
     if buying != -1:
