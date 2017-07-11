@@ -1,5 +1,5 @@
 from poloniex import Poloniex
-from time import time,sleep
+from time import time
 
 import pandas as pd
 
@@ -52,7 +52,6 @@ else:
 print("Margin state %s"%Margin_state['type'])
 print(coin)
 while(1):
-
 
 
     df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.HOUR*6))
