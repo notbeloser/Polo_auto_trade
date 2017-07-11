@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11d7ac1f-df07-44d9-880c-787eb6e8c8e1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Loop_to_test_plan.py" afterPath="$PROJECT_DIR$/Loop_to_test_plan.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTC_MAID.html" afterPath="$PROJECT_DIR$/BTC_MAID.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MAID_auto_trade.py" afterPath="$PROJECT_DIR$/MAID_auto_trade.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MA_test_profit.py" afterPath="$PROJECT_DIR$/MA_test_profit.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MA_test_profit.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MA_test_profit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MA_test_profit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="21" column="35" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="476">
+              <caret line="143" column="30" lean-forward="true" selection-start-line="143" selection-start-column="30" selection-end-line="143" selection-end-column="30" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -58,7 +59,7 @@
       <file leaf-file-name="Loop_to_test_plan.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Loop_to_test_plan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
+            <state relative-caret-position="-17">
               <caret line="67" column="38" lean-forward="false" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
@@ -67,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MAID_auto_trade.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MAID_auto_trade.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MAID_auto_trade.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="1768">
+              <caret line="104" column="66" lean-forward="true" selection-start-line="104" selection-start-column="66" selection-end-line="104" selection-end-column="66" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -126,10 +127,10 @@
         <option value="$PROJECT_DIR$/poloniex/__init__.py" />
         <option value="$PROJECT_DIR$/poloniex/MAID_auto_trade.py" />
         <option value="$PROJECT_DIR$/Dash_auto_trade.py" />
-        <option value="$PROJECT_DIR$/MA_test_profit.py" />
         <option value="$PROJECT_DIR$/Test_profit_MA.py" />
         <option value="$PROJECT_DIR$/Loop_to_test_plan.py" />
         <option value="$PROJECT_DIR$/MAID_auto_trade.py" />
+        <option value="$PROJECT_DIR$/MA_test_profit.py" />
       </list>
     </option>
   </component>
@@ -194,7 +195,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Loop_to_test_plan">
+  <component name="RunManager" selected="Python.Auto_Trade_EMC2_MA">
     <configuration default="false" name="trade_MACD_BTS" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -441,9 +442,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Loop_to_test_plan" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MAID_auto_trade" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Auto_Trade_EMC2_MA" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Auto_Trade_EMC2_MA" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Loop_to_test_plan" />
+        <item index="2" class="java.lang.String" itemvalue="Python.MAID_auto_trade" />
         <item index="3" class="java.lang.String" itemvalue="Python.trade_MACD_BTS" />
         <item index="4" class="java.lang.String" itemvalue="Python.Dash_auto_trade" />
       </list>
@@ -812,16 +813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MA_test_profit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="35" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -832,7 +823,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Loop_to_test_plan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
+        <state relative-caret-position="-17">
           <caret line="67" column="38" lean-forward="false" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
@@ -842,8 +833,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MAID_auto_trade.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="1768">
+          <caret line="104" column="66" lean-forward="true" selection-start-line="104" selection-start-column="66" selection-end-line="104" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MA_test_profit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="143" column="30" lean-forward="true" selection-start-line="143" selection-start-column="30" selection-end-line="143" selection-end-column="30" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

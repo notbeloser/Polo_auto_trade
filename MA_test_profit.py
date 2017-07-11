@@ -29,19 +29,18 @@ output_file(coin+".html", title="Poloniex-即時k線")
 
 
 
-
 window_short = 8
 window_long = 6
 window_bool = 18
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*2))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*1))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
-df['short'] = pd.ewma(df['weightedAverage'], com=window_short)
-df['long'] = pd.rolling_mean(df['weightedAverage'], window=window_long)
+df['short'] = pd.ewma(df['close'], com=window_short)
+df['long'] = pd.rolling_mean(df['close'], window=window_long)
 df['short_diff'] = df['short'].diff() / df['short'] * 100
 df['long_diff'] = df['long'].diff() / df['long'] * 100
 df['SD'] = (df.short - df.long) / df.long * 100
@@ -59,8 +58,9 @@ trade_index = df[df['bs'] == True].index.tolist()
 
 df.dropna(inplace=True)
 df['trade'] = pd.DataFrame.diff(df.buy[trade_index]*1 + df.sell[trade_index]*-1)
-df['trade'].fillna(0,inplace=True)
 df=df.drop(['buy','sell','bs'],axis=1)
+df['trade'].fillna(0,inplace=True)
+
 print_full(df)
 # print(df)
 w = (period * 1000) - 5000
@@ -89,7 +89,7 @@ trade_index = df[df['trade'] ==-2].index.tolist()
 p.circle(df['date'][trade_index],df['close'][trade_index],color='black')
 
 df_index=df.index.tolist()
-
+print(df_index)
 #test profit
 BTC = 1
 fee = 0
@@ -98,6 +98,8 @@ last_price = 0
 trade_time=0
 win =0
 lose =0
+buying = -1
+stop_loss=0
 for i in df_index:
     if df.trade[i] == -2 :
         if last_price>0:
@@ -109,6 +111,7 @@ for i in df_index:
                 lose = lose +1
         last_price = df['close'][i]
         trade_time=trade_time+1
+        buying = 0
     elif df.trade[i] == 2 :
         if last_price>0:
             if last_price*0.9975 > df['close'][i] :
@@ -120,8 +123,25 @@ for i in df_index:
             BTC = last_price / df['close'][i] * BTC * 0.9975
         last_price = df['close'][i]
         trade_time=trade_time+1
+        buying = 1
+
+    # if buying == 1:
+    #     if df['close'][i]/last_price < 0.97 :
+    #         BTC=df['close'][i] / last_price * 0.9975 * BTC
+    #         buying = -1
+    #         last_price = 0
+    #         p.circle(df['date'][i], df['close'][i], color='yellow')
+    #         stop_loss=stop_loss+1
+    # elif buying == 0:
+    #     if last_price / df['close'][i] < 0.97 :
+    #         BTC=last_price / df['close'][i] * 0.9975 * BTC
+    #         buying = -1
+    #         last_price = 0
+    #         p.circle(df['date'][i], df['close'][i], color='yellow')
+    #         stop_loss=stop_loss+1
+
 
 win_rate = win/trade_time *100
-print("BTC %f fee %f trade time %d win %d lose %d,win rate %f,SDN %f,SDP %f"%(BTC,fee,trade_time,win,lose,win_rate,SDN,SDP))
+print("BTC %f fee %f trade time %d win %d lose %d,stop loss %d,win rate %f,SDN %f,SDP %f"%(BTC,fee,trade_time,win,lose,stop_loss,win_rate,SDN,SDP))
 
 show(column(p))

@@ -120,11 +120,11 @@ while(1):
             buying = -1
 
 
-    if buying != -1:
-        if stop_loss() == True:
-            if Margin_state['type'] == 'short':
-                buying = 0
-            elif Margin_state['type'] == 'long':
-                buying = 1
-            else:
-                buying = -1
+    # if buying != -1:
+    #     if stop_loss() == True:
+    #         if Margin_state['type'] == 'short':
+    #             buying = 0
+    #         elif Margin_state['type'] == 'long':
+    #             buying = 1
+    #         else:
+    #             buying = -1
