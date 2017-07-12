@@ -59,8 +59,8 @@ while(1):
     df['date'] = pd.to_datetime(df["date"], unit='s')
 
 
-    df['short'] = pd.ewma(df['weightedAverage'],com= window_short )
-    df['long'] = pd.rolling_mean(df['weightedAverage'], window=window_long)
+    df['short'] = pd.ewma(df['close'],com= window_short )
+    df['long'] = pd.rolling_mean(df['close'], window=window_long)
     df['short_diff'] = df['short'].diff() /df['short'] *100
     df['long_diff'] = df['long'].diff() / df['long']*100
     df['SD'] = (df.short - df.long)/df.long * 100
