@@ -111,6 +111,8 @@ while(1):
         MAID = float(trade_amount.MAID)
         BTC = float(trade_amount.BTC)
 
+        order_book = pd.DataFrame(polo.returnOrderBook(coin, 10))
+
         polo.marginBuy(coin, float(order_book.asks[2][0]), (BTC-0.0001) / float(order_book.asks[2][0]), 0.02)
         print("buy at %f" % (float(order_book.asks[2][0])))
 
