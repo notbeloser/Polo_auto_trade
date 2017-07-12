@@ -22,7 +22,7 @@ def print_full(x):
 pd.set_option('display.width', 300)
 polo = Poloniex('GBC146G1-M9RGA0VT-T5FL729B-P8OTN6SU',
 'a4d44e8e4e4432e9a9a94d66fb17a7b7081858aaeb85c0fdd9b6ebf8a51a7d2fa0160c5db0e55b8d836ba6d64b1c0e324eba164b94278617edd2eec48c09acb7',jsonNums=float)
-coin = "BTC_MAID"
+coin = "BTC_DOGE"
 
 period = polo.MINUTE * 5
 output_file(coin+".html", title="Poloniex-即時k線")
@@ -34,7 +34,7 @@ window_long = 6
 window_bool = 18
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*1))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*3))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
@@ -126,14 +126,14 @@ for i in df_index:
         buying = 1
 
     # if buying == 1:
-    #     if df['close'][i]/last_price < 0.97 :
+    #     if df['close'][i]/last_price < 0.98 :
     #         BTC=df['close'][i] / last_price * 0.9975 * BTC
     #         buying = -1
     #         last_price = 0
     #         p.circle(df['date'][i], df['close'][i], color='yellow')
     #         stop_loss=stop_loss+1
     # elif buying == 0:
-    #     if last_price / df['close'][i] < 0.97 :
+    #     if last_price / df['close'][i] < 0.98 :
     #         BTC=last_price / df['close'][i] * 0.9975 * BTC
     #         buying = -1
     #         last_price = 0
