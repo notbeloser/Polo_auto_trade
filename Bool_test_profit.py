@@ -29,30 +29,29 @@ output_file(coin+".html", title="Poloniex-即時k線")
 
 
 
-window_short = 8
-window_long = 6
+window_long = 10
 window_bool = 18
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*1))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*30))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
-df['short'] = pd.ewma(df['weightedAverage'], com=window_short)
-df['long'] = pd.rolling_mean(df['weightedAverage'], window=window_long)
-df['short_diff'] = df['short'].diff() / df['short'] * 100
-df['long_diff'] = df['long'].diff() / df['long'] * 100
-df['SD'] = (df.short - df.long) / df.long * 100
-df['SD_diff'] = df['SD'].diff(periods=2)
+df['long'] = pd.rolling_mean(df['weightedAverage'],window=window_long)
+
 df['MA'] = pd.rolling_mean(df['weightedAverage'],window=window_bool)
 df['std'] = pd.rolling_std(df['close'],window=window_bool)
-df['bl_up'] = df['MA'] + df['std']*1
-df['bl_down'] = df['MA'] - df['std']*1
+df['bl_up'] = df['MA'] + df['std']*0.85
+df['bl_down'] = df['MA'] - df['std']*0.85
+df['up'] = (df['long'] > df['bl_up'])*1
+df['down'] = (df['long']<df['bl_down'])*1
+df['up_diff'] =df['up'].diff()
+df['down_diff']=df['down'].diff()
 
 
-df['buy'] = (df.SD > SDP)
-df['sell'] = (df.SD < SDN)
+df['buy'] = (df['down_diff'] == -1) | (df['up_diff'] == 1)
+df['sell'] = (df['down_diff'] == 1) | (df['up_diff'] == -1)
 df['bs'] = df.buy != df.sell
 trade_index = df[df['bs'] == True].index.tolist()
 
@@ -76,7 +75,6 @@ p.segment(df.date, df.high, df.date, df.low, color="black")
 p.vbar(df.date[inc], w, df.open[inc], df.close[inc], fill_color="green", line_color="black")
 p.vbar(df.date[dec], w, df.open[dec], df.close[dec], fill_color="red", line_color="black")
 
-p.line(df.date,df.short,color='yellow')
 p.line(df.date,df.long,color='blue')
 p.line(df.date,df.bl_up,color='black')
 p.line(df.date,df.bl_down,color='black')
@@ -140,8 +138,10 @@ for i in df_index:
     #         p.circle(df['date'][i], df['close'][i], color='yellow')
     #         stop_loss=stop_loss+1
 
-
-win_rate = win/trade_time *100
+try:
+    win_rate = win/trade_time *100
+except:
+    win_rate =0
 print("BTC %f fee %f trade time %d win %d lose %d,stop loss %d,win rate %f,SDN %f,SDP %f"%(BTC,fee,trade_time,win,lose,stop_loss,win_rate,SDN,SDP))
 
 show(column(p))
