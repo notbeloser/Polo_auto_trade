@@ -22,7 +22,7 @@ def print_full(x):
 pd.set_option('display.width', 300)
 polo = Poloniex('GBC146G1-M9RGA0VT-T5FL729B-P8OTN6SU',
 'a4d44e8e4e4432e9a9a94d66fb17a7b7081858aaeb85c0fdd9b6ebf8a51a7d2fa0160c5db0e55b8d836ba6d64b1c0e324eba164b94278617edd2eec48c09acb7',jsonNums=float)
-coin = "BTC_DOGE"
+coin = "BTC_MAID"
 
 period = polo.MINUTE * 5
 output_file(coin+".html", title="Poloniex-即時k線")
