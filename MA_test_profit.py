@@ -34,7 +34,7 @@ window_long = 6
 window_bool = 18
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*1))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.HOUR*18))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
@@ -44,7 +44,7 @@ df['long'] = pd.rolling_mean(df['weightedAverage'], window=window_long)
 df['short_diff'] = df['short'].diff() / df['short'] * 100
 df['long_diff'] = df['long'].diff() / df['long'] * 100
 df['SD'] = (df.short - df.long) / df.long * 100
-df['SD_diff'] = df['SD'].diff(periods=2)
+df['SD_diff'] = df['SD'].diff(periods=1)
 df['MA'] = pd.rolling_mean(df['weightedAverage'],window=window_bool)
 df['std'] = pd.rolling_std(df['close'],window=window_bool)
 df['bl_up'] = df['MA'] + df['std']*1
@@ -112,7 +112,7 @@ for i in df_index:
         last_price = df['close'][i]
         trade_time=trade_time+1
         buying = 0
-    elif df.trade[i] == 2 :
+    if df.trade[i] == 2 :
         if last_price>0:
             if last_price*0.9975 > df['close'][i] :
                 win = win+1
@@ -126,14 +126,14 @@ for i in df_index:
         buying = 1
 
     # if buying == 1:
-    #     if df['close'][i]/last_price < 0.98 :
+    #     if df['close'][i]/last_price < 0.97  :
     #         BTC=df['close'][i] / last_price * 0.9975 * BTC
     #         buying = -1
     #         last_price = 0
     #         p.circle(df['date'][i], df['close'][i], color='yellow')
     #         stop_loss=stop_loss+1
     # elif buying == 0:
-    #     if last_price / df['close'][i] < 0.98 :
+    #     if last_price / df['close'][i] < 0.97:
     #         BTC=last_price / df['close'][i] * 0.9975 * BTC
     #         buying = -1
     #         last_price = 0

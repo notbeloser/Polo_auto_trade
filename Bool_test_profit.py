@@ -29,21 +29,21 @@ output_file(coin+".html", title="Poloniex-即時k線")
 
 
 
-window_long = 10
+window_long = 6
 window_bool = 18
 SDP = 0.262626
 SDN= -0.232323
-df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*30))
+df=pd.DataFrame(polo.returnChartData(coin,period,time()-polo.DAY*10 ))
 index = 0
 print(coin)
 df['date'] = df['date'] + polo.DAY / 3  # shift time to UTC+8
 df['date'] = pd.to_datetime(df["date"], unit='s')
-df['long'] = pd.rolling_mean(df['weightedAverage'],window=window_long)
+df['long'] = pd.ewma((df['open']+df['close'])/2,span=window_long)
 
 df['MA'] = pd.rolling_mean(df['weightedAverage'],window=window_bool)
 df['std'] = pd.rolling_std(df['close'],window=window_bool)
-df['bl_up'] = df['MA'] + df['std']*0.85
-df['bl_down'] = df['MA'] - df['std']*0.85
+df['bl_up'] = df['MA'] + df['std']*0.9
+df['bl_down'] = df['MA'] - df['std']*0.9
 df['up'] = (df['long'] > df['bl_up'])*1
 df['down'] = (df['long']<df['bl_down'])*1
 df['up_diff'] =df['up'].diff()
