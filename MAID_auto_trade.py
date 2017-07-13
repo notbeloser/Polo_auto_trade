@@ -33,10 +33,13 @@ def stop_loss():
     pl = float(Margin_state['pl'])
     total = float(Margin_state['total'])
     lendingFees = float(Margin_state['lendingFees'])
-    if (pl+lendingFees) / total < -0.05 :
-        polo.closeMarginPosition(coin)
-        print("stop loss active")
-        return True
+    if total == 0:
+        if (pl+lendingFees) / total < -0.05 :
+            polo.closeMarginPosition(coin)
+            print("stop loss active")
+            return True
+        else:
+            return False
     else:
         return False
 
