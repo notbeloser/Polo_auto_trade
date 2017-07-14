@@ -117,6 +117,9 @@ p2 = figure(x_axis_type="datetime", tools=tools, plot_width=1200,plot_height=200
 p2.xaxis.major_label_orientation = pi / 4
 p2.grid.grid_line_alpha = 2
 p2.line(df.date,df.RSI,color='blue')
+p2.line(df.date,30,color='black')
+p2.line(df.date,70,color='black')
+
 #test profit
 BTC = 1
 fee = 0
