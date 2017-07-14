@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11d7ac1f-df07-44d9-880c-787eb6e8c8e1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MACD_test_profit.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTC_CLAM.html" afterPath="$PROJECT_DIR$/BTC_CLAM.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTC_DOGE.html" afterPath="$PROJECT_DIR$/BTC_DOGE.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTC_MAID.html" afterPath="$PROJECT_DIR$/BTC_MAID.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTC_STR.html" afterPath="$PROJECT_DIR$/BTC_STR.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MAID_auto_trade.py" afterPath="$PROJECT_DIR$/MAID_auto_trade.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +29,8 @@
       <file leaf-file-name="Dash_auto_trade.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dash_auto_trade.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+            <state relative-caret-position="425">
+              <caret line="51" column="27" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -45,8 +51,8 @@
       <file leaf-file-name="MA_test_profit.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MA_test_profit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="124" column="31" lean-forward="true" selection-start-line="124" selection-start-column="31" selection-end-line="124" selection-end-column="31" />
+            <state relative-caret-position="-1222">
+              <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -54,66 +60,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bool_test_profit.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Bool_test_profit.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="24" column="16" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="moments.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/stats/moments.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5508">
-              <caret line="330" column="4" lean-forward="false" selection-start-line="330" selection-start-column="4" selection-end-line="330" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="frame.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/core/frame.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67728">
-              <caret line="4074" column="0" lean-forward="false" selection-start-line="4074" selection-start-column="0" selection-end-line="4074" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MAID_auto_trade.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/MAID_auto_trade.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1086">
-              <caret line="43" column="20" lean-forward="false" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Test_profit_MA.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Test_profit_MA.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="39" column="66" lean-forward="false" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DOGE_auto_trade.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DOGE_auto_trade.py">
+      <file leaf-file-name="MACD_test_profit.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MACD_test_profit.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MAID_auto_trade.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MAID_auto_trade.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1972">
+              <caret line="119" column="25" lean-forward="false" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -172,6 +136,7 @@
         <option value="$PROJECT_DIR$/DOGE_auto_trade.py" />
         <option value="$PROJECT_DIR$/Bool_test_profit.py" />
         <option value="$PROJECT_DIR$/MA_test_profit.py" />
+        <option value="$PROJECT_DIR$/MACD_test_profit.py" />
         <option value="$PROJECT_DIR$/MAID_auto_trade.py" />
       </list>
     </option>
@@ -197,7 +162,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -213,6 +177,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -238,23 +203,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.Auto_Trade_EMC2_MA">
-    <configuration default="false" name="trade_MACD_BTS" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="polo_trade" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test_profit_MA.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="Auto_Trade_EMC2_MA" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -319,6 +267,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="polo_trade" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bool_test_profit.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="MACD_test_profit" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="polo_trade" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MACD_test_profit.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -476,19 +441,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.trade" />
-      <item index="1" class="java.lang.String" itemvalue="Python.trade_MACD_BTS" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Auto_Trade_EMC2_MA" />
-      <item index="3" class="java.lang.String" itemvalue="Python.MAID_auto_trade" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Loop_to_test_plan" />
-      <item index="5" class="java.lang.String" itemvalue="Python.Bool_test_profit" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Auto_Trade_EMC2_MA" />
+      <item index="2" class="java.lang.String" itemvalue="Python.MAID_auto_trade" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Loop_to_test_plan" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Bool_test_profit" />
+      <item index="5" class="java.lang.String" itemvalue="Python.MACD_test_profit" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Auto_Trade_EMC2_MA" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Bool_test_profit" />
-        <item index="2" class="java.lang.String" itemvalue="Python.MAID_auto_trade" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Loop_to_test_plan" />
-        <item index="4" class="java.lang.String" itemvalue="Python.trade_MACD_BTS" />
+        <item index="1" class="java.lang.String" itemvalue="Python.MACD_test_profit" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Bool_test_profit" />
+        <item index="3" class="java.lang.String" itemvalue="Python.MAID_auto_trade" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Loop_to_test_plan" />
       </list>
     </recent_temporary>
   </component>
@@ -569,13 +534,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/poloniex/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8381">
-          <caret line="507" column="30" lean-forward="false" selection-start-line="507" selection-start-column="8" selection-end-line="507" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trade.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -822,13 +780,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dash_auto_trade.py">
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/core/frame.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="67728">
+          <caret line="4074" column="0" lean-forward="false" selection-start-line="4074" selection-start-column="0" selection-end-line="4074" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DOGE_auto_trade.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test_profit_MA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="39" column="66" lean-forward="false" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bool_test_profit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="24" column="16" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -842,50 +819,26 @@
     </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/stats/moments.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5508">
-          <caret line="330" column="4" lean-forward="false" selection-start-line="330" selection-start-column="4" selection-end-line="330" selection-end-column="4" />
+        <state relative-caret-position="241">
+          <caret line="338" column="37" lean-forward="true" selection-start-line="338" selection-start-column="37" selection-end-line="338" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/core/frame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67728">
-          <caret line="4074" column="0" lean-forward="false" selection-start-line="4074" selection-start-column="0" selection-end-line="4074" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test_profit_MA.py">
+    <entry file="file://$PROJECT_DIR$/Dash_auto_trade.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
-          <caret line="39" column="66" lean-forward="false" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DOGE_auto_trade.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <caret line="51" column="27" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bool_test_profit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="24" column="16" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MA_test_profit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="124" column="31" lean-forward="true" selection-start-line="124" selection-start-column="31" selection-end-line="124" selection-end-column="31" />
+        <state relative-caret-position="-1222">
+          <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
@@ -894,8 +847,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MAID_auto_trade.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1086">
-          <caret line="43" column="20" lean-forward="false" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+        <state relative-caret-position="1972">
+          <caret line="119" column="25" lean-forward="false" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MACD_test_profit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
