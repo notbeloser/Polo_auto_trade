@@ -92,9 +92,9 @@ while(1):
         BTC = float(trade_amount.BTC)
 
         order_book = pd.DataFrame(polo.returnOrderBook(coin, 10))
-
-        polo.marginSell(coin, float(order_book.bids[0][0]), MAID, 0.02)
-        print("Sell at %.8f" % float(order_book.bids[0][0]))
+        trade_price = (float(order_book.bids[0][0])+float(order_book.asks[0][0]))/2
+        polo.marginSell(coin, trade_price, MAID, 0.02)
+        print("Sell at %.8f" % trade_price)
 
         Margin_state = polo.getMarginPosition(coin)
         if Margin_state['type'] == 'short':
@@ -107,7 +107,6 @@ while(1):
 
     elif (df_last.trade == 2) & (buying != 1):#buy
         polo.closeMarginPosition(coin)
-
         print(df_last)
         trade_amount = pd.DataFrame(polo.returnTradableBalances())
         trade_amount = trade_amount[coin]
@@ -115,9 +114,10 @@ while(1):
         BTC = float(trade_amount.BTC)
 
         order_book = pd.DataFrame(polo.returnOrderBook(coin, 10))
+        trade_price = (float(order_book.bids[0][0]) + float(order_book.asks[0][0])) / 2
 
-        polo.marginBuy(coin, float(order_book.asks[0][0]), (BTC-0.0001) / float(order_book.asks[0][0]), 0.02)
-        print("buy at %.8f" % (float(order_book.asks[0][0])))
+        polo.marginBuy(coin, trade_price, (BTC-0.0001) / trade_price, 0.02)
+        print("buy at %.8f" % trade_price)
 
         Margin_state = polo.getMarginPosition(coin)
         if Margin_state['type'] == 'short':
